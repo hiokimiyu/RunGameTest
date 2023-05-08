@@ -6,7 +6,8 @@ public class Move : MonoBehaviour
 {
     [SerializeField] Rigidbody _rigidBody;
     [SerializeField] float _speed;
-    bool isStop = false;
+    [SerializeField] GameObject _gol;
+    bool _isStop = false;
     Vector3 _dir = default;
 
     void Awake()
@@ -17,7 +18,16 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _dir = new Vector3(0, 0, _speed);
-        _rigidBody.velocity = _dir;
+        if (_isStop)
+        {
+            _rigidBody.velocity = Vector3.zero;
+        }
+
+        if (_gol.transform.position.z > gameObject.transform.position.z)
+        {
+            _dir = new Vector3(0, 0, _speed);
+            _rigidBody.velocity = _dir;
+            _isStop = true;
+        }
     }
 }
